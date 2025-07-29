@@ -252,7 +252,10 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
 
 
 func createAudioBuffer(_ PCMSamples: UnsafeMutablePointer<UnsafeMutablePointer<Int16>?>, offset: Int, needToInitFormat: Bool, format16: Bool = false) -> AVAudioPCMBuffer {
+    // Determine channel count, max 2 channels (stereo)
     let channelCount = (gHEAD3_num_channels() > 2 ? 2 : gHEAD3_num_channels());
+    print("Debug: channelCount = \(channelCount)") // Log channelCount for debugging
+    
     if (!format16){
         if (needToInitFormat) {format = AVAudioFormat.init(commonFormat: AVAudioCommonFormat.pcmFormatFloat32, sampleRate: Double(gHEAD1_sample_rate()), channels: UInt32(channelCount), interleaved: false)!;}
     } else {
@@ -260,28 +263,51 @@ func createAudioBuffer(_ PCMSamples: UnsafeMutablePointer<UnsafeMutablePointer<I
     }
     let buffer = AVAudioPCMBuffer.init(pcmFormat: format, frameCapacity: UInt32((Int(gHEAD1_total_samples()) - offset)));
     buffer!.frameLength = AVAudioFrameCount(UInt32(Int(gHEAD1_total_samples()) - offset));
-    var i: Int = 0;
-    i = 0;
-    var j: Int = 0;
+    
+    // For stereo and mono handling:
+    // - If stereo (channelCount == 2), fill both channels with actual data.
+    // - If mono (channelCount == 1), duplicate the mono channel into both left and right channels for compatibility.
+    
     if (!format16){
-        while (UInt32(j) < channelCount){
-            while (UInt(i) < UInt((Int(gHEAD1_total_samples()) - offset))) {
-                buffer?.floatChannelData![j][i] =  Float32(Float32(PCMSamples[j]![i+offset]) / Float32(32768));
-                i += 1;
+        // Float32 PCM data
+        let totalSamples = Int(gHEAD1_total_samples()) - offset
+        
+        if channelCount == 2 {
+            // Stereo: fill both channels with their respective data
+            for channel in 0..<2 {
+                for i in 0..<totalSamples {
+                    buffer?.floatChannelData![channel][i] = Float32(Float32(PCMSamples[channel]![i + offset]) / Float32(32768))
+                }
             }
-            i = 0;
-            j += 1;
-        };} else {
-        while (UInt32(j) < channelCount){
-            while (UInt(i) < UInt((Int(gHEAD1_total_samples()) - offset))) {
-                buffer?.int16ChannelData![j][i] =  PCMSamples[j]![i+offset];
-                i += 1;
+        } else if channelCount == 1 {
+            // Mono: duplicate channel 0 into both left and right channels
+            for i in 0..<totalSamples {
+                let sample = Float32(Float32(PCMSamples[0]![i + offset]) / Float32(32768))
+                buffer?.floatChannelData![0][i] = sample
+                buffer?.floatChannelData![1][i] = sample
             }
-            i = 0;
-            j += 1;
+        }
+    } else {
+        // Int16 PCM data
+        let totalSamples = Int(gHEAD1_total_samples()) - offset
+        
+        if channelCount == 2 {
+            // Stereo: fill both channels with their respective data
+            for channel in 0..<2 {
+                for i in 0..<totalSamples {
+                    buffer?.int16ChannelData![channel][i] = PCMSamples[channel]![i + offset]
+                }
+            }
+        } else if channelCount == 1 {
+            // Mono: duplicate channel 0 into both left and right channels
+            for i in 0..<totalSamples {
+                let sample = PCMSamples[0]![i + offset]
+                buffer?.int16ChannelData![0][i] = sample
+                buffer?.int16ChannelData![1][i] = sample
+            }
         }
     }
-    i = 0;
+    
     return buffer!;
 }
 

@@ -1,5 +1,8 @@
+// TODO: Carefully audit all allocations and deallocations. Memory issues such as double-free or freeing invalid pointers can cause malloc errors. Ensure all allocated buffers (PCM_samples, PCM_buffer, ADPCM_buffer, etc.) are only freed if they were actually allocated.
+
 //C++ BRSTM reader
 //Copyright (C) 2020 Extrasklep
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,10 +68,15 @@ Brstm* brstmp;
 std::ifstream brstmfile;
 
 unsigned char brstm_read(Brstm* brstmi,const unsigned char* fileData,signed int debugLevel,uint8_t decodeAudio);
+
+// IMPLEMENTATION NEEDED FOR DEBUGGING
+unsigned char brstm_fstream_read(Brstm * brstmi,std::ifstream& stream,signed int debugLevel);
+
+// IMPLEMENTATION NEEDED FOR DEBUGGING
+void brstm_close(Brstm * brstmi);
+
 void brstm_getbuffer(Brstm * brstmi,const unsigned char* fileData,unsigned long sampleOffset,unsigned int bufferSamples);
 void brstm_fstream_getbuffer(Brstm * brstmi,std::ifstream& stream,unsigned long sampleOffset,unsigned int bufferSamples);
-unsigned char brstm_fstream_read(Brstm * brstmi,std::ifstream& stream,signed int debugLevel);
-void brstm_close(Brstm * brstmi);
 
 //Getters for outer world access
 
@@ -153,3 +161,15 @@ extern "C" unsigned int gFileType(){
 extern "C" unsigned int gFileCodec() {
     return brstmp->codec;
 }
+
+/*
+DEBUGGING INSTRUCTIONS:
+
+1. For every buffer (e.g., PCM_samples, PCM_buffer, ADPCM_buffer, etc.), ensure that you only call free/delete if and only if the pointer is non-null and was previously allocated by malloc/new. Never free memory you did not allocate.
+
+2. If buffers are allocated conditionally, track their allocation status, or set pointers to nullptr after freeing them. This prevents double-free and use-after-free errors.
+
+3. Double-freeing, or freeing a pointer not from malloc/new, will cause crashes like "pointer being freed was not allocated".
+
+4. Enable Address Sanitizer in your project scheme for advanced runtime diagnostics. It can help catch heap and stack memory errors.
+*/
