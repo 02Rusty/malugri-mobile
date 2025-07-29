@@ -1,3 +1,6 @@
+# THIS IS NOT THE ORIGINAL REPO, PLEASE THANK FreeApp2014 FOR THEIR WORK.
+So far, the audio backend issues were killing me in the original repo. And "I've" implemented a really iffy way on fixing it.
+
 # Malugri
 Malugri is a modular app to play various formats of video game music. So far supported formats are the Nintendo audio formats (powered by [OpenRevolution library](https://github.com/ic-scm/OpenRevolution)). The MalugriPlayer core is made to be portable.
 
