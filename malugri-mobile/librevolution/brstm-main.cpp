@@ -118,7 +118,7 @@ extern "C" unsigned long gHEAD1_blocks_samples(){
 
 
 extern "C" int16_t**  getBufferBlock(unsigned long sampleOffset){
-    unsigned int readLength;
+    unsigned long readLength;
     if (sampleOffset/brstmp->blocks_samples < (brstmp->total_blocks)) readLength = brstmp->blocks_samples;
     else readLength = brstmp->final_block_size;
     brstm_fstream_getbuffer(brstmp, brstmfile, sampleOffset, readLength);
@@ -173,3 +173,4 @@ DEBUGGING INSTRUCTIONS:
 
 4. Enable Address Sanitizer in your project scheme for advanced runtime diagnostics. It can help catch heap and stack memory errors.
 */
+
