@@ -21,6 +21,7 @@
 		84970D1D24EFCDF000D6C82F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84970D1C24EFCDF000D6C82F /* Util.swift */; };
 		849B614324F6AAE2003F77B2 /* AudioBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B614224F6AAE2003F77B2 /* AudioBackend.swift */; };
 		97B9FC57F7A6FCB22F45C7C6 /* libPods-malugri-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BE4CE3B68AFAF14A4D67D9 /* libPods-malugri-mobile.a */; };
+		A78E195F2E8054DD00E70AFB /* Black-Line-PNG-HD.png in Resources */ = {isa = PBXBuildFile; fileRef = A78E195E2E8054DC00E70AFB /* Black-Line-PNG-HD.png */; };
 		B94AF522281698B900BC31C1 /* Malugri.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = B94AF521281698B900BC31C1 /* Malugri.svg.png */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		84970D1024EEB1FF00D6C82F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		84970D1C24EFCDF000D6C82F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		849B614224F6AAE2003F77B2 /* AudioBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBackend.swift; sourceTree = "<group>"; };
+		A78E195E2E8054DC00E70AFB /* Black-Line-PNG-HD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Black-Line-PNG-HD.png"; sourceTree = "<group>"; };
 		B94AF521281698B900BC31C1 /* Malugri.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Malugri.svg.png; sourceTree = "<group>"; };
 		D2BE4CE3B68AFAF14A4D67D9 /* libPods-malugri-mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-malugri-mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				B94AF521281698B900BC31C1 /* Malugri.svg.png */,
+				A78E195E2E8054DC00E70AFB /* Black-Line-PNG-HD.png */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78E195F2E8054DD00E70AFB /* Black-Line-PNG-HD.png in Resources */,
 				842CCBE624DC5842005899C4 /* LaunchScreen.storyboard in Resources */,
 				B94AF522281698B900BC31C1 /* Malugri.svg.png in Resources */,
 				842CCBE324DC5842005899C4 /* Assets.xcassets in Resources */,
@@ -395,7 +399,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U3Q2K6A8MZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "malugri-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
@@ -423,7 +427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U3Q2K6A8MZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "malugri-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
