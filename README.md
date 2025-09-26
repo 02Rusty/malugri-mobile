@@ -8,6 +8,8 @@ Malugri is a modular app to play various formats of video game music. So far sup
 This is an implementation of Malugri for iOS devices, using [EZAudio](https://github.com/syedhali/EZAudio) library backend for audio playback, and AVFoundation for conversion features.
 
 ## Building
+### NOTICE 
+Please use homebrew ruby to install this as it caused me less issues on downgrading ruby dependencies.
 ### Dependencies
 This project uses CocoaPods to ship dependencies. If you don't have it installed, you can visit https://cocoapods.org/#install for information on that. Then, in your project folder run
 ```
